@@ -373,52 +373,82 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
 <script>
 // ── FOOD DATABASE ──
 const FOODS=[
-  // 超商/快餐
-  {n:'茶葉蛋',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'g'},
-  {n:'茶葉蛋(1顆)',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'顆',w:50},
+  // ── 質立系列 ──
+  {n:'質立蛋白Plus希臘式優格(1杯)',per100:{kcal:75,pro:8,carb:5,fat:2.5},unit:'杯',w:150},
+  {n:'質立希臘式優格(1杯)',per100:{kcal:83,pro:5.2,carb:5.9,fat:4.1},unit:'杯',w:120},
+  {n:'質立希臘式優格(無加糖)',per100:{kcal:83,pro:5.2,carb:5.9,fat:4.1},unit:'g'},
+
+  // ── 超商主食 ──
+  {n:'茶葉蛋',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'顆',w:50},
+  {n:'茶葉蛋x2',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'份',w:100},
   {n:'關東煮雞蛋',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'顆',w:55},
   {n:'地瓜(蒸)',per100:{kcal:86,pro:1.6,carb:20,fat:0.1},unit:'g'},
   {n:'地瓜 中型(1條)',per100:{kcal:86,pro:1.6,carb:20,fat:0.1},unit:'條',w:150},
-  {n:'茶葉蛋x2',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'份',w:100},
-  {n:'雞胸肉(水煮)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'g'},
-  {n:'雞胸肉 1片',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'片',w:200},
-  {n:'鮪魚罐頭(水煮)',per100:{kcal:103,pro:24,carb:0,fat:0.8},unit:'g'},
-  {n:'鮪魚罐頭(1罐)',per100:{kcal:103,pro:24,carb:0,fat:0.8},unit:'罐',w:150},
-  {n:'即食雞胸肉(1包)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'包',w:110},
-  {n:'原味豆漿(無糖)',per100:{kcal:35,pro:3.6,carb:1.5,fat:1.8},unit:'ml'},
-  {n:'高蛋白豆漿(1瓶)',per100:{kcal:56,pro:7,carb:2,fat:2},unit:'瓶',w:330},
-  {n:'燕麥片(乾)',per100:{kcal:375,pro:13,carb:67,fat:7},unit:'g'},
-  {n:'白飯',per100:{kcal:183,pro:3,carb:40,fat:0.3},unit:'g'},
-  {n:'白飯(1碗)',per100:{kcal:183,pro:3,carb:40,fat:0.3},unit:'碗',w:200},
-  {n:'糙米飯(1碗)',per100:{kcal:175,pro:4,carb:37,fat:1},unit:'碗',w:200},
-  {n:'全麥吐司(1片)',per100:{kcal:247,pro:9,carb:45,fat:3},unit:'片',w:35},
-  {n:'水煮蛋(1顆)',per100:{kcal:143,pro:13,carb:0.7,fat:10},unit:'顆',w:55},
-  {n:'希臘優格(無糖)',per100:{kcal:59,pro:10,carb:3.6,fat:0.4},unit:'g'},
-  {n:'牛奶(全脂)',per100:{kcal:61,pro:3.2,carb:4.8,fat:3.3},unit:'ml'},
-  {n:'牛奶(低脂)',per100:{kcal:45,pro:3.4,carb:4.9,fat:1},unit:'ml'},
-  {n:'香蕉(1根)',per100:{kcal:89,pro:1.1,carb:23,fat:0.3},unit:'根',w:120},
-  {n:'蘋果(1顆)',per100:{kcal:52,pro:0.3,carb:14,fat:0.2},unit:'顆',w:200},
-  {n:'花椰菜(水煮)',per100:{kcal:34,pro:2.8,carb:6,fat:0.4},unit:'g'},
-  {n:'菠菜(燙)',per100:{kcal:23,pro:2.9,carb:3.7,fat:0.4},unit:'g'},
-  {n:'豆腐(嫩)',per100:{kcal:76,pro:8,carb:2,fat:4},unit:'g'},
-  {n:'豆腐(板豆腐)',per100:{kcal:80,pro:9,carb:2,fat:4},unit:'g'},
-  {n:'毛豆(帶殼)',per100:{kcal:122,pro:11,carb:10,fat:5},unit:'g'},
-  {n:'毛豆(1包)',per100:{kcal:122,pro:11,carb:10,fat:5},unit:'包',w:200},
-  {n:'蛋白粉(1匙)',per100:{kcal:370,pro:80,carb:5,fat:3},unit:'匙',w:30},
-  {n:'Clear Whey(1匙)',per100:{kcal:370,pro:80,carb:5,fat:1},unit:'匙',w:27},
   {n:'7-11 御飯糰(鮪魚)',per100:{kcal:185,pro:6,carb:33,fat:3},unit:'個',w:110},
   {n:'7-11 御飯糰(烤鮭魚)',per100:{kcal:178,pro:5,carb:33,fat:2.5},unit:'個',w:110},
   {n:'7-11 雞胸肉沙拉',per100:{kcal:110,pro:20,carb:3,fat:2},unit:'份',w:150},
-  {n:'麥當勞麥克雞塊(6塊)',per100:{kcal:244,pro:15,carb:16,fat:13},unit:'份',w:105},
-  {n:'麥當勞大麥克',per100:{kcal:550,pro:25,carb:45,fat:30},unit:'個',w:200},
-  {n:'麥當勞薯條(中)',per100:{kcal:320,pro:4,carb:42,fat:15},unit:'份',w:117},
+  {n:'FamilyMart 烤地瓜',per100:{kcal:86,pro:1.6,carb:20,fat:0.1},unit:'條',w:180},
+
+  // ── 雞肉 ──
+  {n:'雞胸肉(水煮)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'g'},
+  {n:'雞胸肉 1片(大)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'片',w:200},
+  {n:'即食雞胸肉(1包)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'包',w:110},
+  {n:'雞腿(去皮水煮)',per100:{kcal:155,pro:25,carb:0,fat:5.5},unit:'g'},
+  {n:'雞蛋(水煮)',per100:{kcal:143,pro:13,carb:0.7,fat:10},unit:'顆',w:55},
+  {n:'雞蛋x2',per100:{kcal:143,pro:13,carb:0.7,fat:10},unit:'份',w:110},
+
+  // ── 海鮮 ──
+  {n:'鮪魚罐頭(水煮)',per100:{kcal:103,pro:24,carb:0,fat:0.8},unit:'g'},
+  {n:'鮪魚罐頭(1罐)',per100:{kcal:103,pro:24,carb:0,fat:0.8},unit:'罐',w:150},
+  {n:'鮭魚(烤)',per100:{kcal:206,pro:20,carb:0,fat:13},unit:'g'},
+  {n:'蝦仁(水煮)',per100:{kcal:99,pro:21,carb:0,fat:1},unit:'g'},
+
+  // ── 豆類/豆製品 ──
+  {n:'豆腐(嫩)',per100:{kcal:76,pro:8,carb:2,fat:4},unit:'g'},
+  {n:'板豆腐',per100:{kcal:80,pro:9,carb:2,fat:4},unit:'g'},
+  {n:'毛豆(剝殼)',per100:{kcal:122,pro:11,carb:10,fat:5},unit:'g'},
+  {n:'毛豆(1包)',per100:{kcal:122,pro:11,carb:10,fat:5},unit:'包',w:200},
+  {n:'原味豆漿(無糖)',per100:{kcal:35,pro:3.6,carb:1.5,fat:1.8},unit:'ml'},
+  {n:'高蛋白豆漿(1瓶)',per100:{kcal:56,pro:7,carb:2,fat:2},unit:'瓶',w:330},
+
+  // ── 主食 ──
+  {n:'白飯',per100:{kcal:183,pro:3,carb:40,fat:0.3},unit:'g'},
+  {n:'白飯(1碗)',per100:{kcal:183,pro:3,carb:40,fat:0.3},unit:'碗',w:200},
+  {n:'糙米飯(1碗)',per100:{kcal:175,pro:4,carb:37,fat:1},unit:'碗',w:200},
+  {n:'燕麥片(乾)',per100:{kcal:375,pro:13,carb:67,fat:7},unit:'g'},
+  {n:'全麥吐司(1片)',per100:{kcal:247,pro:9,carb:45,fat:3},unit:'片',w:35},
+
+  // ── 乳製品 ──
+  {n:'希臘優格(無糖)',per100:{kcal:59,pro:10,carb:3.6,fat:0.4},unit:'g'},
+  {n:'牛奶(全脂)',per100:{kcal:61,pro:3.2,carb:4.8,fat:3.3},unit:'ml'},
+  {n:'牛奶(低脂)',per100:{kcal:45,pro:3.4,carb:4.9,fat:1},unit:'ml'},
+
+  // ── 蛋白補充 ──
+  {n:'蛋白粉(1匙)',per100:{kcal:370,pro:80,carb:5,fat:3},unit:'匙',w:30},
+  {n:'Clear Whey(Myprotein蜂蜜檸檬)',per100:{kcal:370,pro:80,carb:5,fat:1},unit:'匙',w:27},
+  {n:'植物蛋白粉(1匙)',per100:{kcal:360,pro:75,carb:8,fat:4},unit:'匙',w:30},
+
+  // ── 蔬菜 ──
+  {n:'花椰菜(水煮)',per100:{kcal:34,pro:2.8,carb:6,fat:0.4},unit:'g'},
+  {n:'菠菜(燙)',per100:{kcal:23,pro:2.9,carb:3.7,fat:0.4},unit:'g'},
+  {n:'生菜沙拉(無醬)',per100:{kcal:20,pro:1.5,carb:3,fat:0.3},unit:'g'},
+
+  // ── 水果 ──
+  {n:'香蕉(1根)',per100:{kcal:89,pro:1.1,carb:23,fat:0.3},unit:'根',w:120},
+  {n:'蘋果(1顆)',per100:{kcal:52,pro:0.3,carb:14,fat:0.2},unit:'顆',w:200},
+
+  // ── 飲料 ──
   {n:'Coca-Cola Fiber+(1罐)',per100:{kcal:2,pro:0,carb:0.5,fat:0},unit:'罐',w:350},
+  {n:'無糖蘋果氣泡水(1罐)',per100:{kcal:0,pro:0,carb:0,fat:0},unit:'罐',w:350},
   {n:'無糖綠茶',per100:{kcal:0,pro:0,carb:0,fat:0},unit:'ml'},
   {n:'美式咖啡(黑)',per100:{kcal:2,pro:0.3,carb:0,fat:0},unit:'ml'},
-  {n:'鮭魚(烤)',per100:{kcal:206,pro:20,carb:0,fat:13},unit:'g'},
-  {n:'牛肉(瘦,炒)',per100:{kcal:215,pro:26,carb:0,fat:12},unit:'g'},
-  {n:'豬里肌(烤)',per100:{kcal:185,pro:29,carb:0,fat:7},unit:'g'},
-  {n:'火雞肉片',per100:{kcal:135,pro:29,carb:0,fat:1},unit:'g'},
+
+  // ── 麥當勞 ──
+  {n:'麥當勞麥克雞塊(6塊)',per100:{kcal:244,pro:15,carb:16,fat:13},unit:'份',w:105},
+  {n:'麥當勞大麥克',per100:{kcal:550,pro:25,carb:45,fat:30},unit:'個',w:200},
+  {n:'麥當勞麥香魚',per100:{kcal:390,pro:16,carb:41,fat:18},unit:'個',w:142},
+  {n:'麥當勞薯條(中)',per100:{kcal:320,pro:4,carb:42,fat:15},unit:'份',w:117},
+  {n:'麥當勞嫩煎雞腿堡',per100:{kcal:440,pro:28,carb:42,fat:17},unit:'個',w:200},
 ];
 
 const GOALS={kcal:1850,pro:180,carb:130,fat:65};
@@ -507,14 +537,14 @@ function updateMacrosFromQty(idx){
 
 function addFood(){
   const name=document.getElementById('f-name').value.trim();
-  const qty=parseFloat(document.getElementById('f-qty').value)||0;
+  const qty=parseFloat(document.getElementById('f-qty').value)||100;
   const kcal=parseFloat(document.getElementById('f-kcal').value)||0;
   const pro=parseFloat(document.getElementById('f-pro').value)||0;
   const carb=parseFloat(document.getElementById('f-carb').value)||0;
   const fat=parseFloat(document.getElementById('f-fat').value)||0;
-  if(!name||(!kcal&&!pro)){
+  if(!name){
     const el=document.getElementById('n-status');
-    el.style.color='#FF6B8B';el.textContent='請填食物名稱與營養素';
+    el.style.color='#FF6B8B';el.textContent='請填寫食物名稱';
     setTimeout(()=>el.textContent='',2000);return;
   }
   const foods=getDayFoods();
