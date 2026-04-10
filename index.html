@@ -20,54 +20,84 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#F3F6FD;color:#1E2A45}
 body{font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden}
-input{background:#E8EEF9;color:#1E2A45;border:none;outline:none;border-radius:14px;padding:9px 12px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;box-shadow:inset 3px 3px 7px rgba(140,160,200,.28);transition:box-shadow .18s;-webkit-appearance:none;appearance:none;width:100%}
-input:focus{box-shadow:inset 3px 3px 7px rgba(78,124,255,.22),0 0 0 2px #4E7CFF}
+input,select{background:#E8EEF9;color:#1E2A45;border:none;outline:none;border-radius:14px;padding:9px 12px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;box-shadow:inset 3px 3px 7px rgba(140,160,200,.28);transition:box-shadow .18s;-webkit-appearance:none;appearance:none;width:100%}
+input:focus,select:focus{box-shadow:inset 3px 3px 7px rgba(78,124,255,.22),0 0 0 2px #4E7CFF}
 input::placeholder{color:#9AAABB;opacity:1}
 button{font-family:'Nunito',sans-serif}
+
 nav{background:#F3F6FD;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid rgba(78,124,255,.1);position:sticky;top:0;z-index:50}
 .logo{font-size:18px;font-weight:900;color:#1E2A45;letter-spacing:-.02em;flex-shrink:0}
 .logo span{color:#4E7CFF}
-.nav-links{display:flex;gap:3px;list-style:none}
-.nb{background:none;border:none;font-size:12px;font-weight:700;color:#5A6A85;padding:6px 11px;border-radius:var(--rp);cursor:pointer;transition:all .18s var(--bn);white-space:nowrap}
+.nav-links{display:flex;gap:3px;list-style:none;flex-wrap:wrap}
+.nb{background:none;border:none;font-size:12px;font-weight:700;color:#5A6A85;padding:6px 10px;border-radius:var(--rp);cursor:pointer;transition:all .18s var(--bn);white-space:nowrap}
 .nb:hover,.nb.active{background:#fff;color:#4E7CFF;box-shadow:var(--scs)}
-.nc{background:#4E7CFF;color:#fff;border:none;font-size:12px;font-weight:800;padding:7px 14px;border-radius:var(--rp);cursor:pointer;box-shadow:var(--scb);transition:transform .18s var(--bn);white-space:nowrap;flex-shrink:0}
-.nc:hover{transform:translateY(-2px) scale(1.03)}
 .page{display:none}.page.active{display:block}
-.setup-wrap{max-width:480px;margin:60px auto;padding:0 20px}
-.setup-card{background:#fff;border-radius:var(--rxl);box-shadow:var(--sc);padding:32px}
-.setup-card h2{font-size:22px;font-weight:900;color:#1E2A45;margin-bottom:8px}
-.setup-card p{font-size:13px;font-weight:500;color:#5A6A85;line-height:1.6;margin-bottom:24px}
-.step{background:#E8EEF9;border-radius:16px;padding:12px 16px;font-size:13px;font-weight:600;color:#1E2A45;line-height:1.6;margin-bottom:10px}
-.step strong{color:#4E7CFF}.step a{color:#4E7CFF;font-weight:800}
-.step code{background:#fff;padding:1px 6px;border-radius:6px;font-size:12px}
-.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
-.fg label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9AAABB}
-.sbtn2{width:100%;background:#4E7CFF;color:#fff;border:none;font-size:15px;font-weight:900;padding:13px;border-radius:18px;cursor:pointer;box-shadow:var(--scb);transition:transform .22s var(--bn);margin-top:4px}
-.sbtn2:hover{transform:translateY(-2px) scale(1.02)}
-.setup-err{background:#FEE2E2;border-radius:12px;padding:10px 14px;font-size:12px;font-weight:700;color:#991B1B;margin-top:10px;display:none}
-.setup-err.vis{display:block}
+
+/* HOME */
 .sec{padding:24px 16px 32px;max-width:960px;margin:0 auto}
 .slbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4E7CFF;margin-bottom:6px;text-align:center}
-.sec h2{font-size:clamp(20px,4vw,30px);font-weight:900;letter-spacing:-.02em;color:#1E2A45;text-align:center;margin-bottom:8px}
+.sec h2{font-size:clamp(20px,4vw,28px);font-weight:900;color:#1E2A45;text-align:center;margin-bottom:8px}
 .ssub{font-size:14px;font-weight:500;color:#5A6A85;text-align:center;margin-bottom:24px}
-.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .tc{background:#fff;border-radius:var(--rxl);box-shadow:var(--sc);padding:22px;cursor:pointer;transition:transform .22s var(--bn);position:relative;overflow:hidden}
 .tc::before{content:'';position:absolute;top:-24px;right:-24px;width:80px;height:80px;border-radius:50%;background:var(--cac,#E8EEF9);opacity:.6;transition:transform .35s var(--bn)}
-.tc:hover{transform:translateY(-5px) scale(1.015)}
-.tc:hover::before{transform:scale(1.5)}
-.tc.live{--cac:#D1FAE5}.tc.coming{--cac:#EDE9FE;opacity:.65;cursor:default}
-.tc.coming:hover{transform:none}
+.tc:hover{transform:translateY(-5px) scale(1.015)}.tc:hover::before{transform:scale(1.5)}
+.tc.live{--cac:#D1FAE5}.tc.coming{--cac:#EDE9FE;opacity:.65;cursor:default}.tc.coming:hover{transform:none}
 .tco{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:22px;box-shadow:var(--scs)}
-.tn{font-size:16px;font-weight:900;color:#1E2A45;margin-bottom:5px}
-.td{font-size:13px;font-weight:500;color:#5A6A85;line-height:1.55;margin-bottom:14px}
+.tn{font-size:15px;font-weight:900;color:#1E2A45;margin-bottom:5px}
+.td{font-size:13px;font-weight:500;color:#5A6A85;line-height:1.5;margin-bottom:14px}
 .tt{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:var(--rp)}
 .tl{background:#D1FAE5;color:#065F46}.ts{background:#EDE9FE;color:#5B21B6}
-.tw{max-width:920px;margin:0 auto;padding:20px 14px 48px}
-.th{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.th h2{font-size:20px;font-weight:900;color:#1E2A45}
-.cb{background:#fff;border-radius:var(--rp);box-shadow:var(--scs);padding:7px 15px;font-size:11px;font-weight:800;color:#FF6B8B}
+
+/* SHARED PANEL */
+.wrap{max-width:920px;margin:0 auto;padding:20px 14px 48px}
+.panel{background:#fff;border-radius:var(--rxl);box-shadow:var(--sc);padding:20px;min-width:0;margin-bottom:14px}
+.pt{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9AAABB;margin-bottom:14px}
+.pg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.pg-hdr h2{font-size:20px;font-weight:900;color:#1E2A45}
+.date-pill{background:#fff;border-radius:var(--rp);box-shadow:var(--scs);padding:7px 14px;font-size:12px;font-weight:800;color:#4E7CFF;cursor:pointer;border:none;white-space:nowrap}
+
+/* NUTRITION */
+.goal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.gc{background:#fff;border-radius:24px;box-shadow:var(--sc);padding:12px 14px;min-width:0}
+.gc-label{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.gc-val{font-size:20px;font-weight:900;color:#1E2A45;line-height:1}
+.gc-unit{font-size:10px;font-weight:700;color:#9AAABB;margin-left:2px}
+.gc-sub{font-size:10px;font-weight:600;color:#9AAABB;margin-top:3px}
+.gc-bar{height:5px;border-radius:var(--rp);background:#E8EEF9;margin-top:6px;overflow:hidden}
+.gc-fill{height:100%;border-radius:var(--rp);transition:width .5s var(--bn)}
+
+.food-form{display:grid;grid-template-columns:1fr 80px;gap:8px;margin-bottom:10px}
+.food-form-full{display:flex;flex-direction:column;gap:8px}
+.fg{display:flex;flex-direction:column;gap:3px}
+.fg label{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#9AAABB}
+.macro-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.add-btn{background:#4E7CFF;color:#fff;border:none;font-size:13px;font-weight:900;padding:10px 16px;border-radius:16px;cursor:pointer;box-shadow:var(--scb);transition:transform .2s var(--bn);white-space:nowrap;align-self:end}
+.add-btn:hover{transform:translateY(-2px) scale(1.03)}
+.add-btn:active{transform:scale(.97)}
+.stmsg{font-size:11px;font-weight:700;color:#4ECBA0;text-align:center;height:18px}
+
+/* FOOD LIST */
+.food-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto}
+.fi{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:10px 12px;background:#E8EEF9;border-radius:14px}
+.fi-name{font-size:13px;font-weight:700;color:#1E2A45}
+.fi-macros{font-size:11px;font-weight:600;color:#9AAABB;margin-top:2px}
+.fi-del{background:none;border:none;font-size:14px;cursor:pointer;color:#9AAABB;padding:4px 6px;transition:color .15s;flex-shrink:0}
+.fi-del:hover{color:#FF6B8B}
+.fempty{text-align:center;font-size:13px;font-weight:600;color:#9AAABB;padding:24px 0}
+
+/* SUGGEST */
+.suggest-wrap{position:relative}
+.suggest-box{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:14px;box-shadow:var(--sc);z-index:20;max-height:200px;overflow-y:auto;display:none}
+.suggest-box.vis{display:block}
+.si{padding:9px 14px;font-size:13px;font-weight:600;color:#1E2A45;cursor:pointer;border-bottom:0.5px solid #E8EEF9}
+.si:last-child{border-bottom:none}
+.si:hover{background:#E8EEF9}
+.si span{font-size:11px;color:#9AAABB;margin-left:6px}
+
+/* BODY TRACKER */
 .mg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
-.mc{background:#fff;border-radius:30px;box-shadow:var(--sc);padding:14px 16px;min-width:0;overflow:hidden;transition:transform .18s var(--bn)}
+.mc{background:#fff;border-radius:28px;box-shadow:var(--sc);padding:14px 16px;min-width:0;overflow:hidden;transition:transform .18s var(--bn)}
 .mc:hover{transform:translateY(-3px)}
 .ml{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9AAABB;margin-bottom:6px}
 .mv{font-size:22px;font-weight:900;color:#1E2A45;line-height:1}
@@ -75,8 +105,7 @@ nav{background:#F3F6FD;padding:11px 14px;display:flex;align-items:center;justify
 .md{font-size:11px;font-weight:700;margin-top:5px;display:inline-block;padding:2px 7px;border-radius:var(--rp)}
 .dg{background:#D1FAE5;color:#065F46}.db{background:#FEE2E2;color:#991B1B}
 .cg{display:grid;grid-template-columns:1fr minmax(0,280px);gap:14px;margin-bottom:14px}
-.panel{background:#fff;border-radius:var(--rxl);box-shadow:var(--sc);padding:20px;min-width:0}
-.pt{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9AAABB;margin-bottom:14px}
+.pt2{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9AAABB;margin-bottom:14px}
 .cw{position:relative;width:100%;height:170px}
 .pr{margin-top:16px}
 .plbl{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#5A6A85;margin-bottom:5px}
@@ -86,27 +115,21 @@ nav{background:#F3F6FD;padding:11px 14px;display:flex;align-items:center;justify
 .fg2{display:flex;flex-direction:column;gap:3px}
 .fg2 label{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#9AAABB}
 .sbtn{width:100%;background:#4E7CFF;color:#fff;border:none;font-size:14px;font-weight:900;padding:11px;border-radius:18px;cursor:pointer;box-shadow:var(--scb);transition:transform .22s var(--bn);margin-top:3px}
-.sbtn:hover{transform:translateY(-2px) scale(1.02)}
-.sbtn:active{transform:scale(.97)}
-.stmsg{font-size:11px;font-weight:700;color:#4ECBA0;text-align:center;height:20px;margin-top:3px}
+.sbtn:hover{transform:translateY(-2px) scale(1.02)}.sbtn:active{transform:scale(.97)}
 .hp{background:#fff;border-radius:var(--rxl);box-shadow:var(--sc);padding:20px}
 .hh{display:grid;grid-template-columns:68px 1fr 1fr 1fr;gap:6px;font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#9AAABB;padding:0 6px 8px;border-bottom:2px solid #E8EEF9;margin-bottom:7px}
-.hl{max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:5px}
+.hl{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:5px}
 .hr{display:grid;grid-template-columns:68px 1fr 1fr 1fr;gap:6px;align-items:center;padding:9px 6px;background:#E8EEF9;border-radius:13px;font-size:12px;font-weight:700;color:#1E2A45;transition:transform .13s}
 .hr:hover{transform:translateX(3px)}
 .hdate{font-size:11px;color:#9AAABB}.hval{text-align:center}
-.hempty{text-align:center;font-size:13px;font-weight:600;color:#9AAABB;padding:28px 0}
-.hist-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.sync-row{display:flex;align-items:center;gap:6px}
-.sync-btn{background:#E8EEF9;border:none;border-radius:var(--rp);padding:5px 12px;font-size:11px;font-weight:800;color:#4E7CFF;cursor:pointer;transition:transform .15s var(--bn)}
-.sync-btn:hover{transform:scale(1.06)}
-.sync-st{font-size:11px;font-weight:600;color:#9AAABB}
+.hempty{text-align:center;font-size:13px;font-weight:600;color:#9AAABB;padding:24px 0}
+
 footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(140,160,200,.18);padding:20px;text-align:center;margin-top:28px}
-.fl{font-size:17px;font-weight:900;color:#1E2A45;margin-bottom:5px}
-.fl span{color:#4E7CFF}
+.fl{font-size:17px;font-weight:900;color:#1E2A45;margin-bottom:5px}.fl span{color:#4E7CFF}
 .fc{font-size:11px;font-weight:600;color:#9AAABB}
-@media(max-width:720px){.cg{grid-template-columns:1fr}.mg{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:380px){.mv{font-size:17px}.nc{display:none}}
+
+@media(max-width:720px){.cg{grid-template-columns:1fr}.mg{grid-template-columns:repeat(2,minmax(0,1fr))}.goal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.macro-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.mv{font-size:18px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -116,48 +139,29 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
   <div class="logo">Rock<span>Lab</span></div>
   <ul class="nav-links">
     <li><button class="nb active" id="nav-home" onclick="goPage('home')">Home</button></li>
-    <li><button class="nb" id="nav-tracker" onclick="goPage('tracker')">Body Tracker</button></li>
+    <li><button class="nb" id="nav-nutrition" onclick="goPage('nutrition')">Nutrition</button></li>
+    <li><button class="nb" id="nav-body" onclick="goPage('body')">Body</button></li>
   </ul>
-  <button class="nc" onclick="goPage('tracker')">Open Tracker</button>
 </nav>
 
-<!-- SETUP -->
-<div id="page-setup" class="page">
-  <div class="setup-wrap">
-    <div class="setup-card">
-      <h2>🔑 首次設定</h2>
-      <p>Rock Lab 用 GitHub Gist 儲存資料，跨裝置同步。設定一次就好。</p>
-      <div class="step"><strong>Step 1</strong> 開啟 <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></div>
-      <div class="step"><strong>Step 2</strong> Note 填 <code>rocklab</code>，Expiration 選 <code>No expiration</code>，往下勾選 <strong>gist</strong>，按 Generate token</div>
-      <div class="step"><strong>Step 3</strong> 複製 token（ghp_ 開頭），貼到下方</div>
-      <div class="fg" style="margin-top:20px">
-        <label>GitHub Personal Access Token</label>
-        <input type="password" id="setup-token" placeholder="ghp_xxxxxxxxxxxxxxxx"/>
-      </div>
-      <button class="sbtn2" onclick="saveToken()">儲存並開始使用 →</button>
-      <div class="setup-err" id="setup-err"></div>
-    </div>
-  </div>
-</div>
-
 <!-- HOME -->
-<div id="page-home" class="page">
+<div id="page-home" class="page active">
   <div class="sec">
     <div class="slbl">Tools</div>
-    <h2>Everything in one place</h2>
-    <p class="ssub">每個功能都是一個獨立工具，隨時可以擴充</p>
+    <h2>Rock Lab</h2>
+    <p class="ssub">個人健康追蹤工具站</p>
     <div class="tgrid">
-      <div class="tc live" onclick="goPage('tracker')" tabindex="0" role="button">
-        <div class="tco" style="background:#D1FAE5">💪</div>
-        <div class="tn">Body Tracker</div>
-        <div class="td">體重、體脂、肌肉量紀錄。GitHub Gist 跨裝置同步。</div>
-        <span class="tt tl">Live</span>
-      </div>
-      <div class="tc coming">
+      <div class="tc live" onclick="goPage('nutrition')">
         <div class="tco" style="background:#FEF3C7">🥗</div>
         <div class="tn">Nutrition Log</div>
-        <div class="td">每日熱量、蛋白質、碳水、脂肪追蹤。</div>
-        <span class="tt ts">Coming soon</span>
+        <div class="td">記錄每餐食物，自動計算熱量與蛋白質進度。</div>
+        <span class="tt tl">Live</span>
+      </div>
+      <div class="tc live" onclick="goPage('body')">
+        <div class="tco" style="background:#D1FAE5">💪</div>
+        <div class="tn">Body Tracker</div>
+        <div class="td">體重、體脂、肌肉量紀錄與比賽進度追蹤。</div>
+        <span class="tt tl">Live</span>
       </div>
       <div class="tc coming">
         <div class="tco" style="background:#EDE9FE">📊</div>
@@ -165,35 +169,100 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
         <div class="td">ChillCityLabo 頻道數據儀表板。</div>
         <span class="tt ts">Coming soon</span>
       </div>
-      <div class="tc coming">
-        <div class="tco" style="background:#FCE7F3">📸</div>
-        <div class="tn">Instagram Planner</div>
-        <div class="td">@mr_rocklai 發文規劃、hashtag 管理。</div>
-        <span class="tt ts">Coming soon</span>
-      </div>
     </div>
   </div>
-  <footer><div class="fl">Rock<span>Lab</span></div><div class="fc">Built by Rock · Powered by GitHub Gist</div></footer>
+  <footer><div class="fl">Rock<span>Lab</span></div><div class="fc">Personal tools · Data stored locally</div></footer>
 </div>
 
-<!-- TRACKER -->
-<div id="page-tracker" class="page">
-  <div class="tw">
-    <div class="th">
+<!-- NUTRITION LOG -->
+<div id="page-nutrition" class="page">
+  <div class="wrap">
+    <div class="pg-hdr">
+      <h2>🥗 Nutrition Log</h2>
+      <button class="date-pill" onclick="changeDate()">📅 <span id="n-date-lbl"></span></button>
+    </div>
+
+    <!-- GOAL PROGRESS -->
+    <div class="goal-grid">
+      <div class="gc">
+        <div class="gc-label" style="color:#FF6B8B">熱量</div>
+        <div><span class="gc-val" id="g-kcal">0</span><span class="gc-unit">kcal</span></div>
+        <div class="gc-sub">目標 1,850</div>
+        <div class="gc-bar"><div class="gc-fill" id="gf-kcal" style="width:0%;background:#FF6B8B"></div></div>
+      </div>
+      <div class="gc">
+        <div class="gc-label" style="color:#4E7CFF">蛋白質</div>
+        <div><span class="gc-val" id="g-pro">0</span><span class="gc-unit">g</span></div>
+        <div class="gc-sub">目標 180g</div>
+        <div class="gc-bar"><div class="gc-fill" id="gf-pro" style="width:0%;background:#4E7CFF"></div></div>
+      </div>
+      <div class="gc">
+        <div class="gc-label" style="color:#A78BFA">碳水</div>
+        <div><span class="gc-val" id="g-carb">0</span><span class="gc-unit">g</span></div>
+        <div class="gc-sub">目標 130g</div>
+        <div class="gc-bar"><div class="gc-fill" id="gf-carb" style="width:0%;background:#A78BFA"></div></div>
+      </div>
+      <div class="gc">
+        <div class="gc-label" style="color:#4ECBA0">脂肪</div>
+        <div><span class="gc-val" id="g-fat">0</span><span class="gc-unit">g</span></div>
+        <div class="gc-sub">目標 65g</div>
+        <div class="gc-bar"><div class="gc-fill" id="gf-fat" style="width:0%;background:#4ECBA0"></div></div>
+      </div>
+    </div>
+
+    <!-- ADD FOOD -->
+    <div class="panel">
+      <div class="pt">新增食物</div>
+      <div class="food-form-full">
+        <div class="suggest-wrap">
+          <div class="fg">
+            <label>食物名稱</label>
+            <input type="text" id="f-name" placeholder="輸入食物名稱..." autocomplete="off" oninput="onFoodInput()" onblur="setTimeout(hideSuggest,150)"/>
+          </div>
+          <div class="suggest-box" id="suggest-box"></div>
+        </div>
+        <div class="food-form">
+          <div class="fg"><label>重量 (g) / 份數</label><input type="number" id="f-qty" placeholder="100" step="1" min="1"/></div>
+          <button class="add-btn" onclick="addFood()">新增</button>
+        </div>
+        <div style="background:#E8EEF9;border-radius:16px;padding:12px 14px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9AAABB;margin-bottom:8px">或手動輸入營養素（找不到食物時）</div>
+          <div class="macro-row">
+            <div class="fg"><label>熱量(kcal)</label><input type="number" id="f-kcal" placeholder="0" step="1"/></div>
+            <div class="fg"><label>蛋白質(g)</label><input type="number" id="f-pro" placeholder="0" step="0.1"/></div>
+            <div class="fg"><label>碳水(g)</label><input type="number" id="f-carb" placeholder="0" step="0.1"/></div>
+            <div class="fg"><label>脂肪(g)</label><input type="number" id="f-fat" placeholder="0" step="0.1"/></div>
+          </div>
+        </div>
+        <div class="stmsg" id="n-status"></div>
+      </div>
+    </div>
+
+    <!-- TODAY'S LIST -->
+    <div class="panel">
+      <div class="pt">今日飲食紀錄</div>
+      <div class="food-list" id="food-list"><div class="fempty">今天還沒有紀錄</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY TRACKER -->
+<div id="page-body" class="page">
+  <div class="wrap">
+    <div class="pg-hdr">
       <h2>💪 Body Tracker</h2>
-      <div class="cb" id="comp-badge">—</div>
+      <div style="background:#fff;border-radius:var(--rp);box-shadow:var(--scs);padding:7px 14px;font-size:11px;font-weight:800;color:#FF6B8B" id="comp-badge">—</div>
     </div>
     <div class="mg">
       <div class="mc"><div class="ml">Weight</div><div><span class="mv" id="m-w">—</span><span class="mu">kg</span></div><div id="d-w" class="md" style="color:#9AAABB">—</div></div>
       <div class="mc"><div class="ml">Body Fat</div><div><span class="mv" id="m-f">—</span><span class="mu">%</span></div><div id="d-f" class="md" style="color:#9AAABB">—</div></div>
       <div class="mc"><div class="ml">Muscle</div><div><span class="mv" id="m-m">—</span><span class="mu">kg</span></div><div id="d-m" class="md" style="color:#9AAABB">—</div></div>
-      <div class="mc"><div class="ml">BMI</div><div><span class="mv" id="m-bmi">—</span></div><div id="d-bmi" class="md" style="color:#9AAABB">—</div></div>
+      <div class="mc"><div class="ml">BMI</div><div><span class="mv" id="m-bmi">—</span></div></div>
     </div>
-
     <div class="cg">
       <div class="panel">
-        <div class="pt">Progress Chart</div>
-        <div class="cw"><canvas id="chart" role="img" aria-label="Weight and body fat trend">No data yet.</canvas></div>
+        <div class="pt2">Progress Chart</div>
+        <div class="cw"><canvas id="chart" role="img" aria-label="Weight and body fat trend">No data.</canvas></div>
         <div class="pr">
           <div class="plbl"><span>Weight: 89.5 → 82 kg</span><span id="wp-pct" style="color:#4E7CFF;font-weight:900">0%</span></div>
           <div class="ptrack"><div class="pfill" id="wb" style="width:0%"></div></div>
@@ -202,7 +271,7 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
         </div>
       </div>
       <div class="panel">
-        <div class="pt">New Entry</div>
+        <div class="pt2">New Entry</div>
         <div class="lf">
           <div class="fg2"><label>Date</label><input type="date" id="i-date"/></div>
           <div class="fg2"><label>Weight (kg)</label><input type="number" id="i-w" placeholder="89.5" step="0.1"/></div>
@@ -210,155 +279,281 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
           <div class="fg2"><label>Muscle (kg)</label><input type="number" id="i-m" placeholder="optional" step="0.1"/></div>
           <div class="fg2"><label>Height (cm)</label><input type="number" id="i-h" placeholder="175" step="1"/></div>
           <div class="fg2"><label>Note</label><input type="text" id="i-n" placeholder="早起量、競賽第幾天"/></div>
-          <button class="sbtn" onclick="addEntry()">Save entry 💾</button>
-          <div class="stmsg" id="status"></div>
+          <button class="sbtn" onclick="addBodyEntry()">Save entry 💾</button>
+          <div class="stmsg" id="b-status"></div>
         </div>
       </div>
     </div>
     <div class="hp">
-      <div class="hist-top">
-        <div class="pt" style="margin-bottom:0">History</div>
-        <div class="sync-row">
-          <span class="sync-st" id="sync-st"></span>
-          <button class="sync-btn" onclick="syncFromGist()">↻ Sync</button>
-          <button class="sync-btn" style="color:#FF6B8B" onclick="resetToken()">⚙ Reset</button>
-        </div>
-      </div>
-      <div class="hh">
-        <span>Date</span><span style="text-align:center">Weight</span><span style="text-align:center">Body Fat</span><span style="text-align:center">Muscle</span>
-      </div>
-      <div class="hl" id="hist"><div class="hempty">載入中...</div></div>
+      <div class="pt2" style="margin-bottom:12px">History</div>
+      <div class="hh"><span>Date</span><span style="text-align:center">Weight</span><span style="text-align:center">Body Fat</span><span style="text-align:center">Muscle</span></div>
+      <div class="hl" id="hist"></div>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const SW=89.5,TW=82,SF=25.8,TF=20,GF='rock_body_data.json';
-let entries=[],chart=null,uH=175,gistId=null;
+// ── FOOD DATABASE ──
+const FOODS=[
+  // 超商/快餐
+  {n:'茶葉蛋',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'g'},
+  {n:'茶葉蛋(1顆)',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'顆',w:50},
+  {n:'關東煮雞蛋',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'顆',w:55},
+  {n:'地瓜(蒸)',per100:{kcal:86,pro:1.6,carb:20,fat:0.1},unit:'g'},
+  {n:'地瓜 中型(1條)',per100:{kcal:86,pro:1.6,carb:20,fat:0.1},unit:'條',w:150},
+  {n:'茶葉蛋x2',per100:{kcal:140,pro:13,carb:1,fat:9},unit:'份',w:100},
+  {n:'雞胸肉(水煮)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'g'},
+  {n:'雞胸肉 1片',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'片',w:200},
+  {n:'鮪魚罐頭(水煮)',per100:{kcal:103,pro:24,carb:0,fat:0.8},unit:'g'},
+  {n:'鮪魚罐頭(1罐)',per100:{kcal:103,pro:24,carb:0,fat:0.8},unit:'罐',w:150},
+  {n:'即食雞胸肉(1包)',per100:{kcal:110,pro:24,carb:0,fat:1.5},unit:'包',w:110},
+  {n:'原味豆漿(無糖)',per100:{kcal:35,pro:3.6,carb:1.5,fat:1.8},unit:'ml'},
+  {n:'高蛋白豆漿(1瓶)',per100:{kcal:56,pro:7,carb:2,fat:2},unit:'瓶',w:330},
+  {n:'燕麥片(乾)',per100:{kcal:375,pro:13,carb:67,fat:7},unit:'g'},
+  {n:'白飯',per100:{kcal:183,pro:3,carb:40,fat:0.3},unit:'g'},
+  {n:'白飯(1碗)',per100:{kcal:183,pro:3,carb:40,fat:0.3},unit:'碗',w:200},
+  {n:'糙米飯(1碗)',per100:{kcal:175,pro:4,carb:37,fat:1},unit:'碗',w:200},
+  {n:'全麥吐司(1片)',per100:{kcal:247,pro:9,carb:45,fat:3},unit:'片',w:35},
+  {n:'水煮蛋(1顆)',per100:{kcal:143,pro:13,carb:0.7,fat:10},unit:'顆',w:55},
+  {n:'希臘優格(無糖)',per100:{kcal:59,pro:10,carb:3.6,fat:0.4},unit:'g'},
+  {n:'牛奶(全脂)',per100:{kcal:61,pro:3.2,carb:4.8,fat:3.3},unit:'ml'},
+  {n:'牛奶(低脂)',per100:{kcal:45,pro:3.4,carb:4.9,fat:1},unit:'ml'},
+  {n:'香蕉(1根)',per100:{kcal:89,pro:1.1,carb:23,fat:0.3},unit:'根',w:120},
+  {n:'蘋果(1顆)',per100:{kcal:52,pro:0.3,carb:14,fat:0.2},unit:'顆',w:200},
+  {n:'花椰菜(水煮)',per100:{kcal:34,pro:2.8,carb:6,fat:0.4},unit:'g'},
+  {n:'菠菜(燙)',per100:{kcal:23,pro:2.9,carb:3.7,fat:0.4},unit:'g'},
+  {n:'豆腐(嫩)',per100:{kcal:76,pro:8,carb:2,fat:4},unit:'g'},
+  {n:'豆腐(板豆腐)',per100:{kcal:80,pro:9,carb:2,fat:4},unit:'g'},
+  {n:'毛豆(帶殼)',per100:{kcal:122,pro:11,carb:10,fat:5},unit:'g'},
+  {n:'毛豆(1包)',per100:{kcal:122,pro:11,carb:10,fat:5},unit:'包',w:200},
+  {n:'蛋白粉(1匙)',per100:{kcal:370,pro:80,carb:5,fat:3},unit:'匙',w:30},
+  {n:'Clear Whey(1匙)',per100:{kcal:370,pro:80,carb:5,fat:1},unit:'匙',w:27},
+  {n:'7-11 御飯糰(鮪魚)',per100:{kcal:185,pro:6,carb:33,fat:3},unit:'個',w:110},
+  {n:'7-11 御飯糰(烤鮭魚)',per100:{kcal:178,pro:5,carb:33,fat:2.5},unit:'個',w:110},
+  {n:'7-11 雞胸肉沙拉',per100:{kcal:110,pro:20,carb:3,fat:2},unit:'份',w:150},
+  {n:'麥當勞麥克雞塊(6塊)',per100:{kcal:244,pro:15,carb:16,fat:13},unit:'份',w:105},
+  {n:'麥當勞大麥克',per100:{kcal:550,pro:25,carb:45,fat:30},unit:'個',w:200},
+  {n:'麥當勞薯條(中)',per100:{kcal:320,pro:4,carb:42,fat:15},unit:'份',w:117},
+  {n:'Coca-Cola Fiber+(1罐)',per100:{kcal:2,pro:0,carb:0.5,fat:0},unit:'罐',w:350},
+  {n:'無糖綠茶',per100:{kcal:0,pro:0,carb:0,fat:0},unit:'ml'},
+  {n:'美式咖啡(黑)',per100:{kcal:2,pro:0.3,carb:0,fat:0},unit:'ml'},
+  {n:'鮭魚(烤)',per100:{kcal:206,pro:20,carb:0,fat:13},unit:'g'},
+  {n:'牛肉(瘦,炒)',per100:{kcal:215,pro:26,carb:0,fat:12},unit:'g'},
+  {n:'豬里肌(烤)',per100:{kcal:185,pro:29,carb:0,fat:7},unit:'g'},
+  {n:'火雞肉片',per100:{kcal:135,pro:29,carb:0,fat:1},unit:'g'},
+];
 
-function getToken(){return localStorage.getItem('rl_token');}
-function getGistId(){return localStorage.getItem('rl_gist_id');}
-function saveToken(){
-  const t=document.getElementById('setup-token').value.trim();
-  if(!t.startsWith('gh')){showSetupErr('Token 格式錯誤，應 ghp_ 開頭');return;}
-  localStorage.setItem('rl_token',t);
-  initGist();
+const GOALS={kcal:1850,pro:180,carb:130,fat:65};
+const BK_BODY='rl_body_v4', BK_NUT='rl_nut_v1';
+
+// ── STATE ──
+let bodyEntries=[], nutData={}, chart=null, uH=175;
+let currentDate=todayStr();
+
+function todayStr(){return new Date().toISOString().slice(0,10);}
+
+// ── STORAGE ──
+function loadAll(){
+  try{const r=localStorage.getItem(BK_BODY);if(r)bodyEntries=JSON.parse(r);}catch(e){bodyEntries=[];}
+  try{const r=localStorage.getItem(BK_NUT);if(r)nutData=JSON.parse(r);}catch(e){nutData={};}
 }
-function showSetupErr(msg){const el=document.getElementById('setup-err');el.textContent=msg;el.classList.add('vis');}
-function resetToken(){if(!confirm('重設 Token？'))return;localStorage.removeItem('rl_token');localStorage.removeItem('rl_gist_id');goPage('setup');}
+function saveBody(){try{localStorage.setItem(BK_BODY,JSON.stringify(bodyEntries));}catch(e){}}
+function saveNut(){try{localStorage.setItem(BK_NUT,JSON.stringify(nutData));}catch(e){}}
 
-async function gh(path,opts={}){
-  return fetch('https://api.github.com'+path,{...opts,headers:{'Authorization':'token '+getToken(),'Accept':'application/vnd.github.v3+json','Content-Type':'application/json',...(opts.headers||{})}});
-}
-
-async function initGist(){
-  setSyncSt('連線中...');
-  try{
-    let gid=getGistId();
-    if(gid){gistId=gid;await syncFromGist();goPage('tracker');return;}
-    const r=await gh('/gists');
-    if(!r.ok)throw new Error('Token 無效');
-    const gists=await r.json();
-    const ex=gists.find(g=>g.files&&g.files[GF]);
-    if(ex){
-      gistId=ex.id;localStorage.setItem('rl_gist_id',gistId);
-      await syncFromGist();
-    }else{
-      const cr=await gh('/gists',{method:'POST',body:JSON.stringify({description:'Rock Lab Data',public:false,files:{[GF]:{content:JSON.stringify({entries:[]})}}})});
-      if(!cr.ok)throw new Error('建立 Gist 失敗');
-      const g=await cr.json();
-      gistId=g.id;localStorage.setItem('rl_gist_id',gistId);
-      entries=[];renderAll();
-    }
-    goPage('tracker');
-  }catch(err){showSetupErr(err.message);setSyncSt('');}
-}
-
-async function syncFromGist(){
-  if(!gistId)return;setSyncSt('同步中...');
-  try{
-    const r=await gh('/gists/'+gistId);
-    if(!r.ok)throw new Error();
-    const g=await r.json();
-    const d=JSON.parse(g.files[GF]?.content||'{"entries":[]}');
-    entries=(d.entries||[]).sort((a,b)=>a.date.localeCompare(b.date));
-    renderAll();setSyncSt('已同步 '+new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}));
-  }catch{setSyncSt('同步失敗');}
-}
-
-async function pushToGist(msg){
-  if(!gistId)return;
-  try{
-    await gh('/gists/'+gistId,{method:'PATCH',body:JSON.stringify({files:{[GF]:{content:JSON.stringify({entries})}}})});
-    setStatus(msg||'Saved ✓');
-    setSyncSt('已同步 '+new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}));
-  }catch{setStatus('儲存失敗','#FF6B8B');}
-}
-
+// ── PAGES ──
 function goPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   const nb=document.getElementById('nav-'+id);if(nb)nb.classList.add('active');
-  if(id==='tracker')renderAll();
+  if(id==='nutrition'){currentDate=todayStr();renderNutrition();}
+  if(id==='body'){renderBody();}
 }
 
-function today(){return new Date().toISOString().slice(0,10);}
-function setStatus(msg,c){const el=document.getElementById('status');el.style.color=c||'#4ECBA0';el.textContent=msg;setTimeout(()=>el.textContent='',2500);}
-function setSyncSt(msg){const el=document.getElementById('sync-st');if(el)el.textContent=msg;}
+// ── NUTRITION ──
+function getDayFoods(){return(nutData[currentDate]||[]);}
+function setDayFoods(foods){nutData[currentDate]=foods;saveNut();}
 
-function addEntry(data){
-  const s=data||{};
-  const date=s.date||document.getElementById('i-date').value||today();
-  const w=s.w!=null?s.w:parseFloat(document.getElementById('i-w').value)||null;
-  const f=s.f!=null?s.f:parseFloat(document.getElementById('i-f').value)||null;
-  const m=s.m!=null?s.m:parseFloat(document.getElementById('i-m').value)||null;
-  const h=s.h!=null?s.h:parseFloat(document.getElementById('i-h').value)||null;
-  const n=s.n||document.getElementById('i-n').value.trim();
-  if(!w&&!f){setStatus('請填寫體重或體脂','#FF6B8B');return false;}
+function changeDate(){
+  const d=prompt('輸入日期 (YYYY-MM-DD)',currentDate);
+  if(d&&d.match(/^\d{4}-\d{2}-\d{2}$/)){currentDate=d;renderNutrition();}
+}
+
+function onFoodInput(){
+  const q=document.getElementById('f-name').value.trim().toLowerCase();
+  const box=document.getElementById('suggest-box');
+  if(!q){box.classList.remove('vis');return;}
+  const matches=FOODS.filter(f=>f.n.toLowerCase().includes(q)).slice(0,8);
+  if(!matches.length){box.classList.remove('vis');return;}
+  box.innerHTML=matches.map((f,i)=>{
+    const w=f.w||100;
+    const kcal=Math.round(f.per100.kcal*w/100);
+    const pro=Math.round(f.per100.pro*w/100*10)/10;
+    return `<div class="si" onclick="selectFood(${FOODS.indexOf(f)})">${f.n}<span>${kcal}kcal · ${pro}g蛋白</span></div>`;
+  }).join('');
+  box.classList.add('vis');
+}
+
+function hideSuggest(){document.getElementById('suggest-box').classList.remove('vis');}
+
+function selectFood(idx){
+  const f=FOODS[idx];
+  document.getElementById('f-name').value=f.n;
+  const w=f.w||100;
+  document.getElementById('f-qty').value=w;
+  // prefill macros
+  document.getElementById('f-kcal').value=Math.round(f.per100.kcal*w/100);
+  document.getElementById('f-pro').value=Math.round(f.per100.pro*w/100*10)/10;
+  document.getElementById('f-carb').value=Math.round(f.per100.carb*w/100*10)/10;
+  document.getElementById('f-fat').value=Math.round(f.per100.fat*w/100*10)/10;
+  hideSuggest();
+  // update macros on qty change
+  document.getElementById('f-qty').oninput=()=>updateMacrosFromQty(idx);
+}
+
+function updateMacrosFromQty(idx){
+  const f=FOODS[idx];
+  const qty=parseFloat(document.getElementById('f-qty').value)||0;
+  document.getElementById('f-kcal').value=Math.round(f.per100.kcal*qty/100);
+  document.getElementById('f-pro').value=Math.round(f.per100.pro*qty/100*10)/10;
+  document.getElementById('f-carb').value=Math.round(f.per100.carb*qty/100*10)/10;
+  document.getElementById('f-fat').value=Math.round(f.per100.fat*qty/100*10)/10;
+}
+
+function addFood(){
+  const name=document.getElementById('f-name').value.trim();
+  const qty=parseFloat(document.getElementById('f-qty').value)||0;
+  const kcal=parseFloat(document.getElementById('f-kcal').value)||0;
+  const pro=parseFloat(document.getElementById('f-pro').value)||0;
+  const carb=parseFloat(document.getElementById('f-carb').value)||0;
+  const fat=parseFloat(document.getElementById('f-fat').value)||0;
+  if(!name||(!kcal&&!pro)){
+    const el=document.getElementById('n-status');
+    el.style.color='#FF6B8B';el.textContent='請填食物名稱與營養素';
+    setTimeout(()=>el.textContent='',2000);return;
+  }
+  const foods=getDayFoods();
+  foods.push({name,qty,kcal,pro,carb,fat,ts:Date.now()});
+  setDayFoods(foods);
+  // clear
+  ['f-name','f-qty','f-kcal','f-pro','f-carb','f-fat'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-qty').oninput=null;
+  const el=document.getElementById('n-status');
+  el.style.color='#4ECBA0';el.textContent='已新增 ✓';
+  setTimeout(()=>el.textContent='',2000);
+  renderNutrition();
+}
+
+function deleteFood(ts){
+  const foods=getDayFoods().filter(f=>f.ts!==ts);
+  setDayFoods(foods);renderNutrition();
+}
+
+function renderNutrition(){
+  const lbl=document.getElementById('n-date-lbl');
+  if(lbl)lbl.textContent=currentDate.slice(5);
+  const foods=getDayFoods();
+  const tot={kcal:0,pro:0,carb:0,fat:0};
+  foods.forEach(f=>{tot.kcal+=f.kcal;tot.pro+=f.pro;tot.carb+=f.carb;tot.fat+=f.fat;});
+  // update goal bars
+  const set=(id,fid,val,goal)=>{
+    document.getElementById(id).textContent=Math.round(val*10)/10;
+    const pct=Math.min(100,Math.round(val/goal*100));
+    document.getElementById(fid).style.width=pct+'%';
+  };
+  set('g-kcal','gf-kcal',tot.kcal,GOALS.kcal);
+  set('g-pro','gf-pro',tot.pro,GOALS.pro);
+  set('g-carb','gf-carb',tot.carb,GOALS.carb);
+  set('g-fat','gf-fat',tot.fat,GOALS.fat);
+  // food list
+  const el=document.getElementById('food-list');
+  if(!foods.length){el.innerHTML='<div class="fempty">今天還沒有紀錄</div>';return;}
+  el.innerHTML=foods.map(f=>`
+    <div class="fi">
+      <div>
+        <div class="fi-name">${f.name}${f.qty?' · '+f.qty+'g':''}</div>
+        <div class="fi-macros">${Math.round(f.kcal)} kcal · 蛋白 ${f.pro}g · 碳水 ${f.carb}g · 脂肪 ${f.fat}g</div>
+      </div>
+      <button class="fi-del" onclick="deleteFood(${f.ts})">✕</button>
+    </div>`).join('');
+}
+
+// ── BODY TRACKER ──
+function addBodyEntry(){
+  const date=document.getElementById('i-date').value||todayStr();
+  const w=parseFloat(document.getElementById('i-w').value)||null;
+  const f=parseFloat(document.getElementById('i-f').value)||null;
+  const m=parseFloat(document.getElementById('i-m').value)||null;
+  const h=parseFloat(document.getElementById('i-h').value)||null;
+  const n=document.getElementById('i-n').value.trim();
+  if(!w&&!f){
+    const el=document.getElementById('b-status');
+    el.style.color='#FF6B8B';el.textContent='請填寫體重或體脂';
+    setTimeout(()=>el.textContent='',2000);return;
+  }
   if(h)uH=h;
-  const idx=entries.findIndex(e=>e.date===date);
-  if(idx>=0)entries[idx]={date,w,f,m,h,n};else entries.push({date,w,f,m,h,n});
-  entries.sort((a,b)=>a.date.localeCompare(b.date));
-  pushToGist('Saved ✓');renderAll();
-  if(!data)['i-w','i-f','i-m','i-n'].forEach(id=>document.getElementById(id).value='');
-  return true;
+  const idx=bodyEntries.findIndex(e=>e.date===date);
+  if(idx>=0)bodyEntries[idx]={date,w,f,m,h,n};
+  else bodyEntries.push({date,w,f,m,h,n});
+  bodyEntries.sort((a,b)=>a.date.localeCompare(b.date));
+  saveBody();
+  const el=document.getElementById('b-status');
+  el.style.color='#4ECBA0';el.textContent='Saved ✓';
+  setTimeout(()=>el.textContent='',2000);
+  ['i-w','i-f','i-m','i-n'].forEach(id=>document.getElementById(id).value='');
+  renderBody();
 }
 
-function renderAll(){renderMetrics();renderChart();renderProgress();renderHist();}
+function renderBody(){
+  renderMetrics();renderChart();renderProgress();renderHist();
+}
+
 function renderMetrics(){
-  if(!entries.length)return;
-  const lat=entries[entries.length-1],prev=entries.length>1?entries[entries.length-2]:null;
+  if(!bodyEntries.length)return;
+  const lat=bodyEntries[bodyEntries.length-1],prev=bodyEntries.length>1?bodyEntries[bodyEntries.length-2]:null;
   const sv=(id,v)=>{if(v!=null)document.getElementById(id).textContent=v.toFixed(1);};
-  const sd=(did,cur,prv,inv=false)=>{if(cur==null||prv==null)return;const d=cur-prv,el=document.getElementById(did);el.textContent=(d>0?'+':'')+d.toFixed(1);el.className='md '+((inv?d>=0:d<=0)?'dg':'db');};
+  const sd=(did,cur,prv,inv=false)=>{
+    if(cur==null||prv==null)return;
+    const d=cur-prv,el=document.getElementById(did);
+    el.textContent=(d>0?'+':'')+d.toFixed(1);
+    el.className='md '+((inv?d>=0:d<=0)?'dg':'db');
+  };
   if(lat.w){sv('m-w',lat.w);sd('d-w',lat.w,prev?.w);}
   if(lat.f){sv('m-f',lat.f);sd('d-f',lat.f,prev?.f);}
   if(lat.m){sv('m-m',lat.m);sd('d-m',lat.m,prev?.m,true);}
   if(lat.w){const hm=(lat.h||uH)/100;document.getElementById('m-bmi').textContent=(lat.w/(hm*hm)).toFixed(1);}
 }
+
 function renderChart(){
   const ctx=document.getElementById('chart').getContext('2d');
   if(chart)chart.destroy();
-  chart=new Chart(ctx,{type:'line',data:{labels:entries.map(e=>e.date.slice(5)),datasets:[
-    {label:'Weight',data:entries.map(e=>e.w),borderColor:'#4E7CFF',backgroundColor:'rgba(78,124,255,.07)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#4E7CFF',tension:0.4,yAxisID:'y',fill:true},
-    {label:'Body Fat',data:entries.map(e=>e.f),borderColor:'#A78BFA',backgroundColor:'transparent',borderWidth:2.5,borderDash:[5,4],pointRadius:3,pointBackgroundColor:'#A78BFA',tension:0.4,yAxisID:'y2'}
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
-    x:{grid:{color:'rgba(90,106,133,.07)'},ticks:{font:{family:'Nunito',size:9,weight:'700'},color:'#9AAABB',maxRotation:0}},
-    y:{position:'left',grid:{color:'rgba(90,106,133,.07)'},ticks:{font:{family:'Nunito',size:9,weight:'700'},color:'#4E7CFF',callback:v=>v+'kg'}},
-    y2:{position:'right',grid:{drawOnChartArea:false},ticks:{font:{family:'Nunito',size:9,weight:'700'},color:'#A78BFA',callback:v=>v+'%'}}
-  }}});
+  chart=new Chart(ctx,{type:'line',data:{
+    labels:bodyEntries.map(e=>e.date.slice(5)),
+    datasets:[
+      {label:'Weight',data:bodyEntries.map(e=>e.w),borderColor:'#4E7CFF',backgroundColor:'rgba(78,124,255,.07)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#4E7CFF',tension:0.4,yAxisID:'y',fill:true},
+      {label:'Body Fat',data:bodyEntries.map(e=>e.f),borderColor:'#A78BFA',backgroundColor:'transparent',borderWidth:2.5,borderDash:[5,4],pointRadius:3,pointBackgroundColor:'#A78BFA',tension:0.4,yAxisID:'y2'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{
+      x:{grid:{color:'rgba(90,106,133,.07)'},ticks:{font:{family:'Nunito',size:9,weight:'700'},color:'#9AAABB',maxRotation:0}},
+      y:{position:'left',grid:{color:'rgba(90,106,133,.07)'},ticks:{font:{family:'Nunito',size:9,weight:'700'},color:'#4E7CFF',callback:v=>v+'kg'}},
+      y2:{position:'right',grid:{drawOnChartArea:false},ticks:{font:{family:'Nunito',size:9,weight:'700'},color:'#A78BFA',callback:v=>v+'%'}}
+    }}
+  });
 }
+
 function renderProgress(){
-  if(!entries.length)return;
-  const lat=entries[entries.length-1];
+  if(!bodyEntries.length)return;
+  const lat=bodyEntries[bodyEntries.length-1];
+  const SW=89.5,TW=82,SF=25.8,TF=20;
   if(lat.w){const p=Math.min(100,Math.max(0,((SW-lat.w)/(SW-TW))*100));document.getElementById('wp-pct').textContent=Math.round(p)+'%';document.getElementById('wb').style.width=p+'%';}
   if(lat.f){const p=Math.min(100,Math.max(0,((SF-lat.f)/(SF-TF))*100));document.getElementById('fp-pct').textContent=Math.round(p)+'%';document.getElementById('fb').style.width=p+'%';}
 }
+
 function renderHist(){
   const el=document.getElementById('hist');
-  if(!entries.length){el.innerHTML='<div class="hempty">No entries yet — add your first measurement 👆</div>';return;}
-  el.innerHTML=[...entries].reverse().map(e=>`
+  if(!bodyEntries.length){el.innerHTML='<div class="hempty">No entries yet 👆</div>';return;}
+  el.innerHTML=[...bodyEntries].reverse().map(e=>`
     <div class="hr">
       <span class="hdate">${e.date.slice(5)}</span>
       <span class="hval">${e.w?e.w.toFixed(1)+' kg':'—'}</span>
@@ -367,16 +562,15 @@ function renderHist(){
     </div>`).join('');
 }
 
-
 // ── INIT ──
+const dl=Math.ceil((new Date('2026-04-17')-new Date())/(864e5));
 const badge=document.getElementById('comp-badge');
 if(badge)badge.textContent=dl>0?`🏆 ${dl} days left`:'Competition ended';
-document.getElementById('i-date').value=today();
+document.getElementById('i-date').value=todayStr();
+document.getElementById('n-date-lbl').textContent=todayStr().slice(5);
 
-const token=getToken();
-if(!token){goPage('setup');}
-else{gistId=getGistId();initGist().catch(()=>{});goPage('tracker');}
-document.querySelector('.tc.live').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')goPage('tracker');});
+loadAll();
+renderNutrition();
 </script>
 </body>
 </html>
