@@ -77,6 +77,14 @@ nav{background:#F3F6FD;padding:11px 14px;display:flex;align-items:center;justify
 .add-btn:active{transform:scale(.97)}
 .stmsg{font-size:11px;font-weight:700;color:#4ECBA0;text-align:center;height:18px}
 
+.meal-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.mt{background:#E8EEF9;border:none;border-radius:var(--rp);padding:7px 14px;font-size:12px;font-weight:800;color:#5A6A85;cursor:pointer;transition:all .18s var(--bn);white-space:nowrap}
+.mt:hover{background:#D1D9F0;color:#1E2A45}
+.mt.active{background:#4E7CFF;color:#fff;box-shadow:var(--scb)}
+.meal-section{margin-bottom:10px}
+.meal-header{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9AAABB;padding:8px 6px 6px;display:flex;align-items:center;gap:6px}
+.meal-badge{font-size:11px;font-weight:700;background:#E8EEF9;color:#5A6A85;padding:2px 8px;border-radius:var(--rp)}
+
 /* FOOD LIST */
 .food-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto}
 .fi{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;padding:10px 12px;background:#E8EEF9;border-radius:14px}
@@ -94,6 +102,17 @@ nav{background:#F3F6FD;padding:11px 14px;display:flex;align-items:center;justify
 .si:last-child{border-bottom:none}
 .si:hover{background:#E8EEF9}
 .si span{font-size:11px;color:#9AAABB;margin-left:6px}
+
+/* SYNC */
+.sync-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.sync-btn{background:#fff;border:none;border-radius:var(--rp);box-shadow:var(--scs);padding:6px 14px;font-size:11px;font-weight:800;cursor:pointer;transition:transform .18s var(--bn);white-space:nowrap}
+.sync-btn:hover{transform:scale(1.05)}
+.sync-btn.sheets{color:#0F9D58}
+.sync-btn.settings{color:#9AAABB}
+.sync-st{font-size:11px;font-weight:600;color:#9AAABB}
+.sheets-setup{background:#E8EEF9;border-radius:18px;padding:14px;margin-top:10px;display:none}
+.sheets-setup.vis{display:block}
+.sheets-setup p{font-size:12px;font-weight:600;color:#5A6A85;margin-bottom:10px;line-height:1.6}
 
 /* BODY TRACKER */
 .mg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
@@ -141,6 +160,7 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
     <li><button class="nb active" id="nav-home" onclick="goPage('home')">Home</button></li>
     <li><button class="nb" id="nav-nutrition" onclick="goPage('nutrition')">Nutrition</button></li>
     <li><button class="nb" id="nav-body" onclick="goPage('body')">Body</button></li>
+    <li><button class="nb" id="nav-settings" onclick="goPage('settings')">⚙</button></li>
   </ul>
 </nav>
 
@@ -214,6 +234,14 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
     <div class="panel">
       <div class="pt">新增食物</div>
       <div class="food-form-full">
+        <!-- MEAL TYPE -->
+        <div class="meal-tabs" id="meal-tabs">
+          <button class="mt active" data-meal="早餐" onclick="selectMeal(this)">🌅 早餐</button>
+          <button class="mt" data-meal="午餐" onclick="selectMeal(this)">☀️ 午餐</button>
+          <button class="mt" data-meal="晚餐" onclick="selectMeal(this)">🌙 晚餐</button>
+          <button class="mt" data-meal="點心" onclick="selectMeal(this)">🍎 點心</button>
+          <button class="mt" data-meal="宵夜" onclick="selectMeal(this)">🌛 宵夜</button>
+        </div>
         <div class="suggest-wrap">
           <div class="fg">
             <label>食物名稱</label>
@@ -240,8 +268,54 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
 
     <!-- TODAY'S LIST -->
     <div class="panel">
-      <div class="pt">今日飲食紀錄</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div class="pt" style="margin-bottom:0">今日飲食紀錄</div>
+        <div class="sync-bar">
+          <span class="sync-st" id="n-sync-st"></span>
+          <button class="sync-btn sheets" onclick="syncToSheets('nutrition')" title="同步到 Google Sheets">📊 Sync Sheets</button>
+        </div>
+      </div>
       <div class="food-list" id="food-list"><div class="fempty">今天還沒有紀錄</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div id="page-settings" class="page">
+  <div class="wrap" style="max-width:520px">
+    <div class="pg-hdr"><h2>⚙ 設定</h2></div>
+    <div class="panel">
+      <div class="pt">Google Sheets 同步</div>
+      <p style="font-size:13px;font-weight:600;color:#5A6A85;line-height:1.7;margin-bottom:16px">
+        設定後，按下 Sync Sheets 按鈕，資料會自動寫入你的 Google Sheets，在任何裝置都能查看。
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:10px;background:#E8EEF9;border-radius:18px;padding:14px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4E7CFF">設定步驟</div>
+        <div style="font-size:13px;font-weight:600;color:#1E2A45;line-height:1.6">
+          <b>1.</b> 開啟 <a href="https://sheets.new" target="_blank" style="color:#4E7CFF;font-weight:800">sheets.new</a> 建立新試算表<br/>
+          <b>2.</b> 點選選單 <b>擴充功能 → Apps Script</b><br/>
+          <b>3.</b> 刪除預設程式碼，貼上 <code style="background:#fff;padding:1px 6px;border-radius:6px">google_apps_script.js</code> 的內容<br/>
+          <b>4.</b> 按 <b>部署 → 新增部署</b>，類型選 <b>網頁應用程式</b><br/>
+          <b>5.</b> 執行身分：<b>我</b>，存取權：<b>任何人</b>，按部署<br/>
+          <b>6.</b> 授權後複製網頁應用程式 URL，貼到下方
+        </div>
+      </div>
+
+      <div class="fg" style="margin-bottom:10px">
+        <label>Google Apps Script Web App URL</label>
+        <input type="text" id="sheets-url" placeholder="https://script.google.com/macros/s/..." oninput="saveSheetUrl()"/>
+      </div>
+      <div id="sheets-test-result" style="font-size:12px;font-weight:700;color:#4ECBA0;height:20px;margin-bottom:8px"></div>
+      <button class="sbtn" style="background:#0F9D58;box-shadow:6px 6px 14px rgba(15,157,88,.3),inset -2px -2px 6px rgba(15,157,88,.2)" onclick="testSheetUrl()">🔗 測試連線</button>
+    </div>
+
+    <div class="panel">
+      <div class="pt">資料管理</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="sbtn" style="background:#A78BFA;box-shadow:6px 6px 14px rgba(167,139,250,.3)" onclick="exportData()">📥 匯出所有資料 (JSON)</button>
+        <button class="sbtn" style="background:#FF6B8B;box-shadow:6px 6px 14px rgba(255,107,139,.3)" onclick="clearAllData()">🗑 清除所有資料</button>
+      </div>
     </div>
   </div>
 </div>
@@ -285,7 +359,10 @@ footer{background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -4px 20px rgba(1
       </div>
     </div>
     <div class="hp">
-      <div class="pt2" style="margin-bottom:12px">History</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div class="pt2" style="margin-bottom:0">History</div>
+        <button class="sync-btn sheets" onclick="syncToSheets('body')" title="同步到 Google Sheets">📊 Sync Sheets</button>
+      </div>
       <div class="hh"><span>Date</span><span style="text-align:center">Weight</span><span style="text-align:center">Body Fat</span><span style="text-align:center">Muscle</span></div>
       <div class="hl" id="hist"></div>
     </div>
@@ -350,8 +427,15 @@ const BK_BODY='rl_body_v4', BK_NUT='rl_nut_v1';
 // ── STATE ──
 let bodyEntries=[], nutData={}, chart=null, uH=175;
 let currentDate=todayStr();
+let currentMeal='早餐';
 
 function todayStr(){return new Date().toISOString().slice(0,10);}
+
+function selectMeal(btn){
+  document.querySelectorAll('.mt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMeal=btn.dataset.meal;
+}
 
 // ── STORAGE ──
 function loadAll(){
@@ -434,7 +518,7 @@ function addFood(){
     setTimeout(()=>el.textContent='',2000);return;
   }
   const foods=getDayFoods();
-  foods.push({name,qty,kcal,pro,carb,fat,ts:Date.now()});
+  foods.push({name,qty,kcal,pro,carb,fat,meal:currentMeal,ts:Date.now()});
   setDayFoods(foods);
   // clear
   ['f-name','f-qty','f-kcal','f-pro','f-carb','f-fat'].forEach(id=>document.getElementById(id).value='');
@@ -466,17 +550,42 @@ function renderNutrition(){
   set('g-pro','gf-pro',tot.pro,GOALS.pro);
   set('g-carb','gf-carb',tot.carb,GOALS.carb);
   set('g-fat','gf-fat',tot.fat,GOALS.fat);
-  // food list
+  // food list grouped by meal
   const el=document.getElementById('food-list');
   if(!foods.length){el.innerHTML='<div class="fempty">今天還沒有紀錄</div>';return;}
-  el.innerHTML=foods.map(f=>`
-    <div class="fi">
-      <div>
-        <div class="fi-name">${f.name}${f.qty?' · '+f.qty+'g':''}</div>
-        <div class="fi-macros">${Math.round(f.kcal)} kcal · 蛋白 ${f.pro}g · 碳水 ${f.carb}g · 脂肪 ${f.fat}g</div>
-      </div>
-      <button class="fi-del" onclick="deleteFood(${f.ts})">✕</button>
-    </div>`).join('');
+  const MEAL_ORDER=['早餐','午餐','晚餐','點心','宵夜'];
+  const MEAL_ICON={早餐:'🌅',午餐:'☀️',晚餐:'🌙',點心:'🍎',宵夜:'🌛'};
+  let html='';
+  MEAL_ORDER.forEach(meal=>{
+    const mfoods=foods.filter(f=>(f.meal||'其他')===meal);
+    if(!mfoods.length)return;
+    const mkcal=Math.round(mfoods.reduce((s,f)=>s+f.kcal,0));
+    const mpro=Math.round(mfoods.reduce((s,f)=>s+f.pro,0)*10)/10;
+    html+=`<div class="meal-section">
+      <div class="meal-header">${MEAL_ICON[meal]||'🍽'} ${meal}<span class="meal-badge">${mkcal} kcal · 蛋白 ${mpro}g</span></div>
+      ${mfoods.map(f=>`
+        <div class="fi">
+          <div>
+            <div class="fi-name">${f.name}${f.qty?' · '+f.qty+'g':''}</div>
+            <div class="fi-macros">${Math.round(f.kcal)} kcal · 蛋白 ${f.pro}g · 碳水 ${f.carb}g · 脂肪 ${f.fat}g</div>
+          </div>
+          <button class="fi-del" onclick="deleteFood(${f.ts})">✕</button>
+        </div>`).join('')}
+    </div>`;
+  });
+  // other meals not in order
+  const otherFoods=foods.filter(f=>!MEAL_ORDER.includes(f.meal||''));
+  if(otherFoods.length){
+    html+=otherFoods.map(f=>`
+      <div class="fi">
+        <div>
+          <div class="fi-name">${f.name}${f.qty?' · '+f.qty+'g':''}</div>
+          <div class="fi-macros">${Math.round(f.kcal)} kcal · 蛋白 ${f.pro}g · 碳水 ${f.carb}g · 脂肪 ${f.fat}g</div>
+        </div>
+        <button class="fi-del" onclick="deleteFood(${f.ts})">✕</button>
+      </div>`).join('');
+  }
+  el.innerHTML=html;
 }
 
 // ── BODY TRACKER ──
@@ -562,12 +671,86 @@ function renderHist(){
     </div>`).join('');
 }
 
+// ── GOOGLE SHEETS SYNC ──
+function getSheetUrl(){return localStorage.getItem('rl_sheet_url')||'';}
+function saveSheetUrl(){
+  const url=document.getElementById('sheets-url').value.trim();
+  localStorage.setItem('rl_sheet_url',url);
+}
+
+async function testSheetUrl(){
+  const url=getSheetUrl();
+  const el=document.getElementById('sheets-test-result');
+  if(!url){el.style.color='#FF6B8B';el.textContent='請先填入 URL';return;}
+  el.style.color='#9AAABB';el.textContent='測試中...';
+  try{
+    const r=await fetch(url);
+    const d=await r.json();
+    if(d.ok){el.style.color='#4ECBA0';el.textContent='✓ 連線成功！';}
+    else{el.style.color='#FF6B8B';el.textContent='連線失敗：'+d.error;}
+  }catch(e){el.style.color='#FF6B8B';el.textContent='連線失敗：'+e.message;}
+}
+
+async function syncToSheets(type){
+  const url=getSheetUrl();
+  const stEl=document.getElementById('n-sync-st');
+  if(!url){
+    if(stEl){stEl.textContent='請先在設定填入 Sheets URL';}
+    return;
+  }
+  if(stEl)stEl.textContent='同步中...';
+  try{
+    let payload;
+    if(type==='nutrition'){
+      const foods=getDayFoods();
+      const tot={kcal:0,pro:0,carb:0,fat:0};
+      foods.forEach(f=>{tot.kcal+=f.kcal;tot.pro+=f.pro;tot.carb+=f.carb;tot.fat+=f.fat;});
+      payload={type:'nutrition',date:currentDate,foods,totals:tot};
+    }else{
+      payload={type:'body',entries:bodyEntries};
+    }
+    const r=await fetch(url,{method:'POST',body:JSON.stringify(payload)});
+    const d=await r.json();
+    if(d.ok){
+      const t=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+      if(stEl)stEl.textContent='✓ 已同步 '+t;
+    }else{
+      if(stEl)stEl.textContent='同步失敗：'+(d.error||'未知錯誤');
+    }
+  }catch(e){
+    if(stEl)stEl.textContent='同步失敗：'+e.message;
+  }
+}
+
+// ── DATA MANAGEMENT ──
+function exportData(){
+  const data={bodyEntries,nutData,exportedAt:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='rocklab_data_'+todayStr()+'.json';
+  a.click();
+}
+
+function clearAllData(){
+  if(!confirm('確定要清除所有資料？這個動作無法復原。'))return;
+  localStorage.removeItem(BK_BODY);
+  localStorage.removeItem(BK_NUT);
+  bodyEntries=[];nutData={};
+  renderNutrition();renderBody();
+  alert('已清除所有資料。');
+}
+
 // ── INIT ──
 const dl=Math.ceil((new Date('2026-04-17')-new Date())/(864e5));
 const badge=document.getElementById('comp-badge');
 if(badge)badge.textContent=dl>0?`🏆 ${dl} days left`:'Competition ended';
 document.getElementById('i-date').value=todayStr();
 document.getElementById('n-date-lbl').textContent=todayStr().slice(5);
+
+// load sheet URL into settings field
+const savedUrl=getSheetUrl();
+if(savedUrl){const el=document.getElementById('sheets-url');if(el)el.value=savedUrl;}
 
 loadAll();
 renderNutrition();
