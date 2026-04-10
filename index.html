@@ -454,25 +454,14 @@ function readDU(file){
   return new Promise((resolve,reject)=>{
     const fr=new FileReader();
     fr.onload=e=>resolve(e.target.result);
-    fr.onerror=()=>reject(new Error('Load failed'));
+    fr.onerror=e=>reject(new Error('FileReader error'));
+    fr.onabort=()=>reject(new Error('FileReader aborted'));
     fr.readAsDataURL(file);
   });
 }
 
 async function blobToB64(file){
-  const url=URL.createObjectURL(file);
-  try{
-    const resp=await fetch(url);
-    const blob=await resp.blob();
-    return new Promise((resolve,reject)=>{
-      const fr=new FileReader();
-      fr.onload=e=>resolve(e.target.result);
-      fr.onerror=()=>reject(new Error('Read failed'));
-      fr.readAsDataURL(blob);
-    });
-  }finally{
-    URL.revokeObjectURL(url);
-  }
+  return readDU(file);
 }
 
 async function handleFiles(fileList){
@@ -513,7 +502,7 @@ async function handleFiles(fileList){
       if(r.notes)merged.notes.push(r.notes);
     }catch(e){
       document.getElementById('th-'+(i+1)).style.outline='2px solid #FF6B8B';
-      merged.notes.push('第'+(i+1)+'張失敗');
+      merged.notes.push(`第${i+1}張: ${e.message}`);
     }
   }
 
@@ -526,27 +515,39 @@ async function handleFiles(fileList){
 }
 
 async function analyzeOne(dataUrl){
-  const b64=dataUrl.split(',')[1];
-  const mime=(dataUrl.match(/data:(image\/\w+);/)||[])[1]||'image/jpeg';
+  const parts=dataUrl.split(',');
+  if(parts.length<2)throw new Error('Invalid image data');
+  const b64=parts[1];
+  const mimeMatch=dataUrl.match(/data:(image\/[\w+]+);/);
+  const mime=mimeMatch?mimeMatch[1]:'image/jpeg';
   const prompt=`Analyze this body measurement screenshot (Omron Connect, InBody, Apple Health, or scale).
 Extract if visible: weight(kg), overall body_fat_percent(%), skeletal muscle_mass(kg), height(cm), measurement_date(YYYY-MM-DD or null).
 For Omron: main body fat % is the large number labeled 標準/偏高/偏低 — ignore partial 雙臂/身軀/雙腳 values.
 Return ONLY valid JSON, no other text:
 {"weight":number|null,"body_fat_percent":number|null,"muscle_mass":number|null,"height":number|null,"measurement_date":string|null,"notes":"一行中文"}`;
-  const resp=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
-      messages:[{role:'user',content:[
-        {type:'image',source:{type:'base64',media_type:mime,data:b64}},
-        {type:'text',text:prompt}
-      ]}]
-    })
-  });
-  if(!resp.ok)throw new Error('API '+resp.status);
+  let resp;
+  try{
+    resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:400,
+        messages:[{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:mime,data:b64}},
+          {type:'text',text:prompt}
+        ]}]
+      })
+    });
+  }catch(e){throw new Error('網路錯誤:'+e.message);}
+  if(!resp.ok){
+    let body='';try{body=await resp.text();}catch(e){}
+    throw new Error('API '+resp.status+' '+body.slice(0,80));
+  }
   const data=await resp.json();
   const txt=(data.content.find(c=>c.type==='text')||{}).text||'';
   const match=txt.match(/\{[\s\S]*?\}/);
-  if(!match)throw new Error('No JSON');
+  if(!match)throw new Error('AI未回傳JSON: '+txt.slice(0,60));
   const p=JSON.parse(match[0]);
   if(typeof p.measurement_date==='string'&&p.measurement_date.includes('null'))p.measurement_date=null;
   return p;
