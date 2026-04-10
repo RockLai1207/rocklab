@@ -471,12 +471,48 @@ function selectMeal(btn){
 }
 
 // ── STORAGE ──
-function loadAll(){
+function loadLocal(){
   try{const r=localStorage.getItem(BK_BODY);if(r)bodyEntries=JSON.parse(r);}catch(e){bodyEntries=[];}
   try{const r=localStorage.getItem(BK_NUT);if(r)nutData=JSON.parse(r);}catch(e){nutData={};}
 }
-function saveBody(){try{localStorage.setItem(BK_BODY,JSON.stringify(bodyEntries));}catch(e){}}
-function saveNut(){try{localStorage.setItem(BK_NUT,JSON.stringify(nutData));}catch(e){}}
+function saveLocal(){
+  try{localStorage.setItem(BK_BODY,JSON.stringify(bodyEntries));}catch(e){}
+  try{localStorage.setItem(BK_NUT,JSON.stringify(nutData));}catch(e){}
+}
+
+// ── CLOUD LOAD (GET from Sheets) ──
+async function loadFromCloud(){
+  const url=getSheetUrl();
+  if(!url)return false;
+  setSyncGlobal('從 Sheets 載入...');
+  try{
+    const r=await fetch(url+'?action=load');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(!d.ok)throw new Error(d.error);
+    // merge: cloud wins, then save to local
+    if(d.body&&d.body.length){
+      bodyEntries=d.body.sort((a,b)=>a.date.localeCompare(b.date));
+    }
+    if(d.nutrition&&Object.keys(d.nutrition).length){
+      nutData=d.nutrition;
+    }
+    saveLocal();
+    setSyncGlobal('✓ 已從 Sheets 載入');
+    return true;
+  }catch(e){
+    setSyncGlobal('');
+    return false;
+  }
+}
+
+function setSyncGlobal(msg){
+  // show sync status in both pages
+  ['n-sync-st','b-sync-st'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.textContent=msg;
+  });
+}
 
 // ── PAGES ──
 function goPage(id){
@@ -490,7 +526,7 @@ function goPage(id){
 
 // ── NUTRITION ──
 function getDayFoods(){return(nutData[currentDate]||[]);}
-function setDayFoods(foods){nutData[currentDate]=foods;saveNut();}
+function setDayFoods(foods){nutData[currentDate]=foods;saveLocal();}
 
 function changeDate(){
   const d=prompt('輸入日期 (YYYY-MM-DD)',currentDate);
@@ -560,11 +596,14 @@ function addFood(){
   el.style.color='#4ECBA0';el.textContent='已新增 ✓';
   setTimeout(()=>el.textContent='',2000);
   renderNutrition();
+  autoSync('nutrition');
 }
 
 function deleteFood(ts){
   const foods=getDayFoods().filter(f=>f.ts!==ts);
-  setDayFoods(foods);renderNutrition();
+  setDayFoods(foods);
+  renderNutrition();
+  autoSync('nutrition');
 }
 
 function renderNutrition(){
@@ -639,12 +678,13 @@ function addBodyEntry(){
   if(idx>=0)bodyEntries[idx]={date,w,f,m,h,n};
   else bodyEntries.push({date,w,f,m,h,n});
   bodyEntries.sort((a,b)=>a.date.localeCompare(b.date));
-  saveBody();
+  saveLocal();
   const el=document.getElementById('b-status');
   el.style.color='#4ECBA0';el.textContent='Saved ✓';
   setTimeout(()=>el.textContent='',2000);
   ['i-w','i-f','i-m','i-n'].forEach(id=>document.getElementById(id).value='');
   renderBody();
+  autoSync('body');
 }
 
 function renderBody(){
@@ -780,12 +820,20 @@ if(badge)badge.textContent=dl>0?`🏆 ${dl} days left`:'Competition ended';
 document.getElementById('i-date').value=todayStr();
 document.getElementById('n-date-lbl').textContent=todayStr().slice(5);
 
-// load sheet URL into settings field
 const savedUrl=getSheetUrl();
 if(savedUrl){const el=document.getElementById('sheets-url');if(el)el.value=savedUrl;}
 
-loadAll();
+// 先載入本地資料讓頁面可用
+loadLocal();
 renderNutrition();
+renderBody();
+
+// 再從雲端同步（有 URL 才跑）
+if(getSheetUrl()){
+  loadFromCloud().then(ok=>{
+    if(ok){renderNutrition();renderBody();}
+  });
+}
 </script>
 </body>
 </html>
