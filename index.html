@@ -782,16 +782,39 @@ async function syncToSheets(type){
     }else{
       payload={type:'body',entries:bodyEntries};
     }
-    // Use no-cors + URLSearchParams to avoid CORS preflight
-    const form=new URLSearchParams();
-    form.append('data',JSON.stringify(payload));
-    await fetch(url,{method:'POST',body:form,mode:'no-cors'});
-    // no-cors means we can't read response, but request goes through
+    // Use GET with data in URL to avoid CORS preflight issues
+    const encoded=encodeURIComponent(JSON.stringify(payload));
+    const r=await fetch(`${url}?action=write&data=${encoded}`);
+    const d=await r.json();
     const t=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
-    if(stEl)stEl.textContent='✓ 已送出 '+t;
+    if(stEl)stEl.textContent=d.ok?'✓ 已同步 '+t:'失敗：'+(d.error||'');
   }catch(e){
     if(stEl)stEl.textContent='失敗：'+e.message;
   }
+}
+
+// autoSync = silent version of syncToSheets
+async function autoSync(type){
+  const url=getSheetUrl();
+  if(!url)return;
+  try{
+    let payload;
+    if(type==='nutrition'){
+      const foods=getDayFoods();
+      const tot={kcal:0,pro:0,carb:0,fat:0};
+      foods.forEach(f=>{tot.kcal+=f.kcal;tot.pro+=f.pro;tot.carb+=f.carb;tot.fat+=f.fat;});
+      payload={type:'nutrition',date:currentDate,foods,totals:tot};
+    }else{
+      payload={type:'body',entries:bodyEntries};
+    }
+    const encoded=encodeURIComponent(JSON.stringify(payload));
+    const r=await fetch(`${url}?action=write&data=${encoded}`);
+    const d=await r.json();
+    if(d.ok){
+      const t=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+      setSyncGlobal('✓ 已同步 '+t);
+    }
+  }catch(e){/* silent */}
 }
 
 // ── DATA MANAGEMENT ──
